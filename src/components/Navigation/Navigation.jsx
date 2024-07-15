@@ -15,20 +15,6 @@ export default function Navigation() {
                 <NavLink to="/movies" className={makeNavLinkClass}>
                     Movies
                 </NavLink>
-
-                {/* <NavLink to="/movies/:movieId" className={makeNavLinkClass}>
-                    MovieDetailsPage
-                </NavLink>
-                <NavLink to="/movies/:movieId/cast" className={makeNavLinkClass}>
-                    MovieCast
-                </NavLink>
-                <NavLink to="/movies/:movieId/reviews" className={makeNavLinkClass}>
-                    MovieReviews
-                </NavLink>
-
-                <NavLink to="/NotFoundPage" className={makeNavLinkClass}>
-                    NotFoundPage
-                </NavLink> */}
             </nav>
         </header>
     );

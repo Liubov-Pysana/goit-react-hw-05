@@ -29,7 +29,8 @@ export default function MoviesPage() {
             >
                 Search
             </button>
-            <MovieList movies={movies}></MovieList>
+            {movies.length > 0 && <MovieList movies={movies}></MovieList>}
+            {/* <MovieList movies={movies}></MovieList> */}
         </div>
     );
 }

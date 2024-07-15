@@ -1,7 +1,7 @@
 import axios from "axios";
-// import MovieList from "./components/MovieList/MovieList";
+import { useEffect, useState } from "react";
+import MovieList from "./components/MovieList/MovieList";
 axios.defaults.baseURL = "https://api.themoviedb.org/3";
-//axios.defaults.headers.common["Authorization"] = "Bearer cacbd44e0a90a01a6c0853d0ccb68158";
 
 const options = {
     headers: {
