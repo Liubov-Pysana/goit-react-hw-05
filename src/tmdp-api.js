@@ -44,6 +44,11 @@ export const getMovieReviews = async (movieId) => {
     return response.data;
 };
 
+export const getConfiguration = async () => {
+    const response = await axios.get(`/configuration`, options);
+    return response.data;
+};
+
 // axios
 //     .get(url, options)
 //     .then((response) => console.log(response))

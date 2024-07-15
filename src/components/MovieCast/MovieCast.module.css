@@ -1,0 +1,20 @@
+.castList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.castListItem {
+    margin-bottom: 20px;
+}
+
+.castListItem img {
+    width: 100px;
+    height: auto;
+
+    margin-right: 15px;
+}
+
+.castListItem p {
+    margin: 0;
+    font-size: 18px;
+}
