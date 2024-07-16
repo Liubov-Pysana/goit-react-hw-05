@@ -11,7 +11,7 @@ const options = {
     },
 };
 
-export const getMovies = async (query) => {
+export const searchMovies = async (query) => {
     const response = await axios.get(`/search/movie`, {
         params: {
             query,

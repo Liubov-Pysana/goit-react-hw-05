@@ -1,36 +1,53 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { searchMovies } from "../../tmdp-api.js";
 import MovieList from "../../components/MovieList/MovieList";
-import { useEffect, useState, createRef } from "react";
-import { getMovies, getTrendingMovies } from "../../tmdp-api";
+import css from "./MoviesPage.module.css";
+import { useSearchParams } from "react-router-dom";
 
 export default function MoviesPage() {
-    // <Link to="/movies">{MovieList}</Link>;
-    const inputRef = createRef();
-    const [search, setSearch] = useState("");
     const [movies, setMovies] = useState([]);
+    const [query, setQuery] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
+
     useEffect(() => {
-        async function fetchMovies() {
-            try {
-                const data = await getMovies(search);
-                setMovies(data.results);
-            } catch (error) {}
+        const queryParam = searchParams.get("query");
+        if (queryParam) {
+            setQuery(queryParam);
+            handleSearch(queryParam);
         }
-        fetchMovies();
-    }, [search]);
+    }, [searchParams]);
+
+    const handleInputChange = (e) => {
+        setQuery(e.target.value);
+    };
+
+    const handleSearch = async (searchQuery) => {
+        if (!searchQuery.trim()) return;
+
+        try {
+            const data = await searchMovies(searchQuery);
+            setMovies(data.results); // Ensure you access the correct property
+        } catch (error) {
+            console.error("Error fetching movies:", error);
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!query.trim()) return;
+
+        setSearchParams({ query });
+    };
 
     return (
         <div>
-            <input ref={inputRef}></input>
-            <button
-                onClick={() => {
-                    console.log(inputRef.current.value);
-                    setSearch(inputRef.current.value);
-                }}
-            >
-                Search
-            </button>
-            {movies.length > 0 && <MovieList movies={movies}></MovieList>}
-            {/* <MovieList movies={movies}></MovieList> */}
+            <form onSubmit={handleSubmit} className={css.form}>
+                <input type="text" value={query} onChange={handleInputChange} placeholder="Search for movies" />
+                <button type="submit" className={css.btn}>
+                    Search
+                </button>
+            </form>
+            {movies.length > 0 && <MovieList movies={movies} />}
         </div>
     );
 }
