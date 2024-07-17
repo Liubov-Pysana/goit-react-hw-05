@@ -26,7 +26,7 @@ export default function MoviesPage() {
 
         try {
             const data = await searchMovies(searchQuery);
-            setMovies(data.results); // Ensure you access the correct property
+            setMovies(data.results);
         } catch (error) {
             console.error("Error fetching movies:", error);
         }

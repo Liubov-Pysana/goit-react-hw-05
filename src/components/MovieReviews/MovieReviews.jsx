@@ -1,19 +1,38 @@
-import { useOutletContext } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getMovieReviews } from "../../tmdp-api";
+import css from "./MovieReviews.module.css";
 
 export default function MovieReviews() {
-    const { reviews } = useOutletContext();
+    const { movieId } = useParams();
+    const [reviews, setReviews] = useState([]);
 
-    if (!reviews) {
+    useEffect(() => {
+        async function fetchReviews() {
+            try {
+                const reviewsData = await getMovieReviews(movieId);
+                setReviews(reviewsData.results);
+            } catch (error) {
+                console.error("Error fetching reviews:", error);
+            }
+        }
+        fetchReviews();
+    }, [movieId]);
+
+    if (!reviews.length) {
         return <div>Loading...</div>;
     }
-    // We don't have any reviews for this movie
+
     return (
-        <div>
+        <div className={css.reviewsContainer}>
             <h4>Reviews</h4>
-            <ul>
+            <ul className={css.reviewsList}>
                 {!reviews.length && <div>We don't have any reviews for this movie</div>}
                 {reviews.map((review) => (
-                    <li key={review.id}>{review.content}</li>
+                    <li className={css.reviewItem} key={review.id}>
+                        <p className={css.reviewContent}>{review.content}</p>
+                        <p className={css.reviewAuthor}>- {review.author}</p>
+                    </li>
                 ))}
             </ul>
         </div>

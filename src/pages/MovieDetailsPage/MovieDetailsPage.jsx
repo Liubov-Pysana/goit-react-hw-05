@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { NavLink, useParams, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { getMovieById, getMovieCredits, getMovieReviews } from "../../tmdp-api";
 import css from "./MovieDetailsPage.module.css";
@@ -10,6 +10,7 @@ export default function MovieDetailsPage() {
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [reviews, setReviews] = useState([]);
+    const prevLocationRef = useRef(location.state?.from ?? "/movies");
 
     useEffect(() => {
         async function fetchMovieDetails() {
@@ -35,7 +36,7 @@ export default function MovieDetailsPage() {
 
     return (
         <>
-            <button className={css.goBackButton} onClick={() => navigate(-1)}>
+            <button className={css.goBackButton} onClick={() => navigate(prevLocationRef.current)}>
                 Go back
             </button>
             <div>
