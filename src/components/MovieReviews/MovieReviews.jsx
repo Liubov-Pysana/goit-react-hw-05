@@ -19,9 +19,9 @@ export default function MovieReviews() {
         fetchReviews();
     }, [movieId]);
 
-    if (!reviews.length) {
-        return <div>Loading...</div>;
-    }
+    // if (!reviews.length) {
+    //     return <div>Loading...</div>;
+    // }
 
     return (
         <div className={css.reviewsContainer}>
